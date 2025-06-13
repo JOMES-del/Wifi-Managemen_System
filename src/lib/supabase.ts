@@ -1,8 +1,19 @@
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+// Get environment variables with fallbacks for development
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://example.supabase.co'
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'your-anon-key'
 
+// Check if we have valid configuration
+if (!supabaseUrl || supabaseUrl === 'your_supabase_project_url') {
+  console.error('Missing or invalid VITE_SUPABASE_URL. Please set it in your .env file.')
+}
+
+if (!supabaseAnonKey || supabaseAnonKey === 'your_supabase_anon_key') {
+  console.error('Missing or invalid VITE_SUPABASE_ANON_KEY. Please set it in your .env file.')
+}
+
+// Create Supabase client
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
 export type Database = {
